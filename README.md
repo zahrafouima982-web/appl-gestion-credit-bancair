@@ -1,41 +1,41 @@
 # 🏦 Système de Gestion de Crédits Bancaires - ENSAH
 
-Ce projet est une application robuste développée en **Langage C**. Elle permet d'automatiser la gestion des clients, le traitement des demandes de crédits et le suivi des remboursements au sein d'une agence bancaire.
+Ce projet est une application complète en **Langage C** développée pour automatiser la gestion des opérations bancaires. Elle propose une interface structurée pour les administrateurs et les clients.
 
-## 👤 Réalisé par
+## 👤 Réalisé par :
 * **Zahra Fouima**
 * **Encadré par** : Mr. BAHRI, Abdelkhalak
-* **Année Universitaire** : 2025/2026
+* **Établissement** : ENSA d'Al Hoceima (2025/2026)
 
 ---
 
-## 🚀 Fonctionnalités Principales
+## 📂 Architecture Modulaire du Projet
+L'application est découpée en modules spécifiques pour une gestion optimale du code :
 
-### 🔐 Espace Administrateur
-* **Gestion des comptes** : Création, modification et suppression des comptes clients.
-* **Validation** : Étude et approbation des demandes de crédits.
-* **Reporting** : Consultation des statistiques globales de la banque.
+### 🕹️ Cœur du Système
+* **`main.c`** : Point d'entrée, gestion du lancement et menus principaux.
+* **`style.h`** : Fonctions d'affichage, couleurs et ergonomie de la console.
 
-### 👥 Espace Client
-* **Consultation** : Visualisation du solde et des informations personnelles.
-* **Demandes** : Formulation de nouvelles demandes de crédit.
-* **Suivi** : Historique des paiements et capital restant dû.
+### 👥 Gestion des Utilisateurs et Comptes
+* **`client.c / .h`** : Fonctions de base liées aux clients.
+* **`compteClient.c / .h`** : Gestion détaillée des comptes bancaires et soldes.
+* **`authentification.c / .h`** : (Si présent) Sécurisation des accès aux espaces.
+
+### 🏢 Espaces Dédiés
+* **`espaceAdmin.c / .h`** : Interface et outils réservés à l'administrateur de la banque.
+* **`espaceClientComplet.c / .h`** : Interface utilisateur permettant au client de gérer son compte.
+
+### 💰 Gestion des Crédits
+* **`demande.c / .h`** : Gestion des formulaires et du dépôt des demandes de crédit.
+* **`credit.c / .h`** : Moteur de calcul financier (mensualités, taux d'intérêt).
+* **`paiement.c / .h`** : Suivi des remboursements et historique des transactions.
+
+### 📊 Analyse
+* **`statistique.c / .h`** : Génération de rapports et statistiques sur l'activité bancaire.
 
 ---
 
-## 📂 Architecture Modulaire du Code
-Le projet est structuré de manière professionnelle avec une séparation claire des responsabilités :
-
-* **`main.c`** : Point d'entrée de l'application et menu principal.
-* **`compteClient.c / .h`** : Logique de gestion des comptes bancaires.
-* **`credit.c / .h`** : Moteur financier (calcul d'intérêts, mensualités).
-* **`paiement.c / .h`** : Gestion des transactions et échéanciers.
-* **`statistique.c / .h`** : Analyse des données et rapports d'activité.
-* **`style.h`** : Fonctions d'affichage pour une interface console ergonomique.
-
----
-
-## 🛠️ Installation et Exécution
-1. Clonez le dépôt :
-   ```bash
-   git clone [https://github.com/zahrafouima982-web/appl-gestion-credit-bancair.git](https://github.com/zahrafouima982-web/appl-gestion-credit-bancair.git)
+## 🛠️ Compilation
+Pour compiler l'intégralité du projet avec GCC :
+```bash
+gcc *.c -o gestion_credit
