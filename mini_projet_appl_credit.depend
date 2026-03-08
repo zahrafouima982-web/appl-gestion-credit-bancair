@@ -1,0 +1,145 @@
+# depslib dependency file v1.0
+1766743274 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\client.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"client.h"
+	"compteClient.h"
+	"credit.h"
+	"paiement.h"
+	"style.h"
+
+1766706308 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\client.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1765870056 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\compteclient.h
+	"client.h"
+
+1766700621 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\credit.h
+	<stdio.h>
+
+1766700180 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\paiement.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"credit.h"
+	"paiement.h"
+	"client.h"
+	"compteClient.h"
+
+1766741166 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\compteclient.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"compteClient.h"
+	"style.h"
+
+1766738318 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\demande.h
+	<stdio.h>
+
+1766328369 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\statistique.h
+	"compteClient.h"
+	"credit.h"
+	"demande.h"
+	"paiement.h"
+
+1766685689 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\espaceclientcomplet.h
+	"compteClient.h"
+	"client.h"
+	"credit.h"
+	"demande.h"
+
+1765870056 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\espaceadmin.h
+
+1773003446 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\credit.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<time.h>
+	"credit.h"
+	"demande.h"
+	"style.h"
+
+1773003208 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\demande.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"demande.h"
+	"credit.h"
+	"style.h"
+
+1773002321 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\espaceadmin.c
+	"espaceAdmin.h"
+	"compteClient.h"
+	"client.h"
+	"credit.h"
+	"style.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	"demande.h"
+	"statistique.h"
+
+1773003208 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\espaceclientcomplet.c
+	"espaceClientComplet.h"
+	"style.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<math.h>
+	<conio.h>
+	"compteClient.h"
+
+1766731137 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\paiement.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+	<math.h>
+	"credit.h"
+	"paiement.h"
+	"client.h"
+	"compteClient.h"
+	"style.h"
+
+1766733721 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\statistique.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"statistique.h"
+	"credit.h"
+	"demande.h"
+	"paiement.h"
+	<math.h>
+	"compteClient.h"
+	"style.h"
+
+1772988660 source:c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	<time.h>
+	<windows.h>
+	"demande.h"
+	"credit.h"
+	"statistique.h"
+	"paiement.h"
+	"espaceClientComplet.h"
+	"espaceAdmin.h"
+	"client.h"
+	"compteClient.h"
+	"style.h"
+
+1773002663 c:\users\user\desktop\applicatio_ban\mini_projet_appl_credit\style.h
+	<stdio.h>
+	<stdlib.h>
+

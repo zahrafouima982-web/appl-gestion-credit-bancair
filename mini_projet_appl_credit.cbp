@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="mini_projet_appl_credit" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/mini_projet_appl_credit" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/mini_projet_appl_credit" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="client.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="client.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="compteClient.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="compteClient.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="credit.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="credit.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="demande.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="demande.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="espaceAdmin.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="espaceAdmin.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="espaceClientComplet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="espaceClientComplet.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="paiement.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="paiement.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="statistique.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="statistique.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="style.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
