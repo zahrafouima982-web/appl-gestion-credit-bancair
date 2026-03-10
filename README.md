@@ -1,52 +1,128 @@
-# 🏦 Système de Gestion de Crédits Bancaires — ENSAH
+# Bank Credit Management System (C)
 
-Ce projet consiste en le développement d'une application de gestion bancaire robuste et modulaire en **Langage C**, réalisée dans le cadre du cycle ingénieur. L'application automatise les opérations critiques liées aux clients, aux comptes, aux crédits et aux remboursements.
+## Overview
+This project is a **Bank Credit Management System developed in C**.  
+The application simulates a simplified banking environment where administrators and clients can manage credit-related operations.
 
-## 👤 Réalisé par :
-* **Zahra Fouima**
-* **Encadré par** : Mr. BAHRI, Abdelkhalak
-* **Établissement** : ENSA d'Al Hoceima (2025/2026)
+The system is implemented using **modular programming**, where each module is responsible for a specific banking function.
 
----
-
-## ✨ Fonctionnalités Principales
-
-### 👤 Espace Administrateur
-* **Authentification sécurisée** : Accès protégé pour l'administration.
-* **Gestion des Clients** : Ajout, modification, suppression et recherche de clients.
-* **Gestion des Comptes** : Création et suivi des soldes bancaires et des informations personnelles.
-* **Traitement des Crédits** : Analyse, approbation ou refus des demandes de prêt.
-* **Statistiques Globales** : Rapports sur le capital prêté et la rentabilité.
-
-### 🔑 Espace Client
-* **Consultation personnelle** : Accès sécurisé aux informations de profil et de solde.
-* **Suivi de Crédit** : Consultation de l'état des crédits et de l'historique des paiements.
-* **Demande de Crédit** : Possibilité pour le client de soumettre une demande de prêt.
+The application runs in a **console interface** and manages data using files.
 
 ---
 
-## 🏗️ Architecture du Projet
+## Features
 
-L'application adopte une approche de **programmation modulaire** pour une maintenance et une clarté optimales.
+### Admin Features
+- Add, modify and delete clients
+- Manage client accounts
+- Process credit requests
+- Approve or reject credit applications
+- Manage credits
+- Manage payments
+- Generate financial statistics
 
-* **Point d'entrée** : `main.c`.
-* **Gestion Clients** : `client.c/.h`, `compteClient.c/.h`.
-* **Gestion Crédits** : `demande.c/.h`, `credit.c/.h`, `paiement.c/.h`.
-* **Espaces Dédiés** : `espaceAdmin.c/.h`, `espaceClientComplet.c/.h`.
-* **Utilitaires & Analyse** : `style.h`, `statistique.c/.h`, `authentification.c/.h`.
+### Client Features
+- Login to personal space
+- View personal information
+- View credits
+- Submit credit requests
+- View payment history
 
 ---
 
-## 🛠️ Spécifications Techniques
+## Project Structure
+Bank-Credit-Management-System/
+│
+├── main.c
+├── client.c
+├── client.h
+├── compteClient.c
+├── compteClient.h
+├── credit.c
+├── credit.h
+├── demande.c
+├── demande.h
+├── paiement.c
+├── paiement.h
+├── statistique.c
+├── statistique.h
+├── espaceAdmin.c
+├── espaceAdmin.h
+├── espaceClientComplet.c
+├── espaceClientComplet.h
+└── style.h
 
-* **Langage** : C.
-* **Persistance** : Stockage des données via des fichiers texte (`.txt`).
-* **Interface** : Mode console ergonomique avec codes couleurs et nettoyage d'écran.
 
 ---
 
-## 🚀 Installation et Compilation
+## Modules Description
 
-1. **Clonage du projet** :
-   ```bash
-   git clone [https://github.com/zahrafouima982-web/appl-gestion-credit-bancair.git](https://github.com/zahrafouima982-web/appl-gestion-credit-bancair.git)
+### Client Module
+Manages bank clients:
+- add client
+- update client
+- delete client
+- search client
+- display clients
+
+### Account Module
+Manages client bank accounts.
+
+### Credit Request Module
+Handles credit requests from clients.
+
+### Credit Module
+Manages approved credits and calculates installments.
+
+### Payment Module
+Handles loan repayment operations.
+
+### Statistics Module
+Generates statistics related to credits, payments, and requests.
+
+---
+
+## Technologies Used
+
+- C Programming Language
+- Modular Programming
+- File Handling
+- Console Interface
+
+---
+
+## Compilation
+
+Compile the program using GCC:
+
+
+gcc *.c -o banque
+
+
+---
+
+## Run the Program
+
+
+./banque
+
+
+---
+
+## Learning Outcomes
+
+This project helped practice:
+
+- Modular programming in C
+- File management
+- Software architecture
+- Banking system logic
+
+---
+
+## Authors
+
+- Zahra Fouima
+
+
+Engineering Cycle – Computer Science
