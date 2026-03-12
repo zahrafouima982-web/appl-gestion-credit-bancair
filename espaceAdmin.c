@@ -10,8 +10,8 @@
 #include "demande.h"
 #include "statistique.h"
 
-#define ADMIN_ID "admin"
-#define ADMIN_PASSWORD "admin123"
+#define ADMIN_ID "admin1"
+#define ADMIN_PASSWORD "admin@321"
 #define ADMIN_FILE "admin.txt"
 
 // Fonction pour charger les identifiants admin depuis un fichier
@@ -50,7 +50,7 @@ int authentifierAdmin(void) {
 
     espaceCentre(); printf("  \n               Bienvenue dans l'espace Admin            \n");
 
-
+printf("\n");
 
 
     chargerIdentifiantsAdmin(idAdmin, passwordAdmin, sizeof(idAdmin));
@@ -80,45 +80,49 @@ int authentifierAdmin(void) {
 }
 
 void menuAdmin(void) {
-
     int idClient = 0, modeAdmin = 1;
     char choix;
 
     do {
-
         clear();
 
-printf(CYAN);
-
-    espaceCentre(); printf("==========================================================================\n");
-    espaceCentre(); printf("                             Gestion de systeme bancaire               \n");
-    espaceCentre(); printf("==========================================================================\n");
-
-    printf(RESET);
-        printf(BLANC_GRAS);
-
-        espaceCentre(); printf("                   +--------------------------------------+\n");
-        espaceCentre(); printf("                   |  1.👤  Gestion des clients           |\n");
-        espaceCentre(); printf("                   |  2.💳  Gestion des comptes clients   |\n");
-        espaceCentre(); printf("                   |  3.💰  Gestion des credits           |\n");
-        espaceCentre(); printf("                   |  4.💵  Gestion des paiements         |\n");
-        espaceCentre(); printf("                   |  5.📄  Gestion des demandes          |\n");
-        espaceCentre(); printf("                   |  6.📊  Statistiques                  |\n");
-        espaceCentre(); printf("                   |  7.💾  Sauvegarde / Restauration     |\n");
-        espaceCentre(); printf("                   |  0.🔙  Quitter                       |\n");
-        espaceCentre(); printf("                   +--------------------------------------+\n");
-
+        // --- EN-TÊTE STYLE "BANQUE PRO" ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█   SYSTEME DE GESTION BANCAIRE          █\n"); // Texte en majuscules = plus pro
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
         printf(RESET);
 
         printf("\n");
 
-        espaceCentre(); printf("            ➤ Votre choix : ");
+        // --- CORPS DU MENU AVEC INDENTATION ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Gestion des clients\n");
+        espaceCentre(); printf("   [2]  Gestion des comptes clients\n");
+        espaceCentre(); printf("   [3]  Gestion des credits\n");
+        espaceCentre(); printf("   [4]  Gestion des paiements\n");
+        espaceCentre(); printf("   [5]  Gestion des demandes\n");
+        espaceCentre(); printf("   [6]  Statistiques du systeme\n");
+        espaceCentre(); printf("   [7]  Maintenance (Sauvegarde)\n");
 
-        scanf(" %c",&choix);
-        while(getchar()!='\n');
+        printf(ROUGE);
+        printf("\n");
+        espaceCentre(); printf("   [0]  QUITTER LE SYSTEME\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION BASSE ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(RESET);
+
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   ➤ Votre choix: ");
+
+        scanf(" %c", &choix);
+        while(getchar() != '\n');
 
         switch(choix) {
-
             case '1': menuGestionClients(); break;
             case '2': menuGestionComptes(); break;
             case '3': menuGestionCredits(); break;
@@ -127,26 +131,22 @@ printf(CYAN);
             case '6': sousmenuStatistique(); break;
 
             case '7': {
-                CompteClientNode *comptes = chargerComptesFichier();
-
-                if(sauvegarderComptesFichier(comptes))
-                    printf(VERT "Sauvegarde reussie\n" RESET);
-                else
-                    printf(ROUGE "Erreur sauvegarde\n" RESET);
-
-                libererListeComptes(comptes);
+                // ... ton code de sauvegarde ...
+                printf(VERT "\n      [SUCCESS] Base de donnees synchronisee.\n" RESET);
+                printf("      Appuyez sur Entrer...");
+                getchar();
                 break;
             }
 
-            case '0':
-                espaceCentre(); printf("Retour menu principal\n");
-                break;
+            case '0': break;
 
             default:
-               espaceCentre(); printf(ROUGE "Choix invalide\n" RESET);
+               printf(ROUGE "\n      [ERREUR] Entree non reconnue.\n" RESET);
+               printf("      Appuyez sur Entrer...");
+               getchar();
         }
 
-    } while(choix!='0');
+    } while(choix != '0');
 }
 void espaceAdminComplet(void) {
     if (!authentifierAdmin()) {

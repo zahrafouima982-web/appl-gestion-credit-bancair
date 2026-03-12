@@ -196,9 +196,22 @@ CreditNode* rechercherCreditParId(CreditNode *head, int id) {
 void rechercherEtAfficherCredit(void) {
     int id;
     clear();
-    titre("RECHERCHE DE CREDIT");
-    printf("Entrez l'ID du credit a afficher : ");
-    if (scanf("%d", &id) != 1) { while(getchar()!='\n'); printf(ROUGE "ID invalide.\n" RESET); return; }
+
+    // --- EN-TÊTE ---
+    printf(CYAN);
+    espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+    espaceCentre(); printf("█          RECHERCHE DE CREDIT           █\n");
+    espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+    printf(RESET);
+
+    printf("\n");
+    espaceCentre(); printf(BLANC_GRAS "  ➤ Entrez l'ID du credit : " RESET);
+
+    if (scanf("%d", &id) != 1) {
+        while(getchar()!='\n');
+        printf(ROUGE "\n      [!] ID invalide.\n" RESET);
+        return;
+    }
     while(getchar()!='\n');
 
     CreditNode *head = chargerCredits();
@@ -206,25 +219,40 @@ void rechercherEtAfficherCredit(void) {
 
     if (n) {
         Credit *c = &n->credit;
-        printf("\n" CYAN "Details du Credit ID %d (Client: %d)" RESET "\n", c->idCredit, c->idClient);
-        printf("=========================================\n");
-        printf("Montant Initial : %.2lf DH\n", c->montant);
-        printf("Taux Annuel     : %.2lf %%\n", c->taux);
-        printf("Duree (mois)    : %d\n", c->duree);
-        printf("Mensualite      : " JAUNE "%.2lf DH" RESET "\n", c->mensualite);
-        printf("Montant Restant : %.2lf DH\n", c->montantRestant);
-        printf("Etat            : %s\n", c->etat == ETAT_ACTIF ? VERT "ACTIF" RESET : ROUGE "CLOTURE" RESET);
-        printf("Date Creation   : %s\n", c->dateCreation);
-        printf("=========================================\n");
 
+        // --- FICHE RECAPITULATIVE ---
+        printf("\n");
+        espaceCentre(); printf(CYAN "╔══════════════════════════════════════════╗" RESET "\n");
+        espaceCentre(); printf(CYAN "║" RESET BLANC_GRAS "         SYNTHESE DU DOSSIER N°%-6d   " RESET CYAN "  ║" RESET "\n", c->idCredit);
+        espaceCentre(); printf(CYAN "╠══════════════════════════════════════════╣" RESET "\n");
+
+        espaceCentre(); printf(CYAN "║" RESET " ID Client      : " BLANC_GRAS "%-22d" RESET CYAN "  ║" RESET "\n", c->idClient);
+        espaceCentre(); printf(CYAN "║" RESET " Montant Initial: " BLANC_GRAS "%-19.2f DH" RESET CYAN "  ║" RESET "\n", c->montant);
+        espaceCentre(); printf(CYAN "║" RESET " Taux Annuel    : " BLANC_GRAS "%-21.2f%%" RESET CYAN "  ║" RESET "\n", c->taux);
+        espaceCentre(); printf(CYAN "║" RESET " Duree          : " BLANC_GRAS "%-19d mois" RESET CYAN "║" RESET "\n", c->duree);
+        espaceCentre(); printf(CYAN "║" RESET " Mensualite     : " JAUNE "%-19.2f DH" RESET CYAN "  ║" RESET "\n", c->mensualite);
+        espaceCentre(); printf(CYAN "║" RESET " Montant Restant: " BLANC_GRAS "%-19.2f DH" RESET CYAN "  ║" RESET "\n", c->montantRestant);
+
+        espaceCentre(); printf(CYAN "║" RESET " Etat           : " RESET);
+        if (c->etat == ETAT_ACTIF) printf(VERT "%-22s" RESET CYAN "  ║" RESET "\n", "ACTIF");
+        else printf(ROUGE "%-22s" RESET CYAN " ║" RESET "\n", "CLOTURE");
+
+        espaceCentre(); printf(CYAN "║" RESET " Date Creation  : " BLANC_GRAS "%-22s" RESET CYAN "  ║" RESET "\n", c->dateCreation);
+        espaceCentre(); printf(CYAN "╚══════════════════════════════════════════╝" RESET "\n");
+
+        printf("\n      Appuyez sur Entrer pour voir le tableau d'amortissement...");
+        getchar();
+printf("\n");
+        // Appel de la fonction de tableau stylisée précédemment
         afficherTableauAmortissement(c);
 
     } else {
-        printf(ROUGE "Credit ID %d introuvable.\n" RESET, id);
+        printf(ROUGE "\n      [!] Credit ID %d introuvable.\n" RESET, id);
+        printf("\n      Appuyez sur Entrer...");
+        getchar();
     }
+
     libererCredits(head);
-    printf("\nAppuyez sur Entrer pour continuer...");
-    getchar();
 }
 
 void rechercherEtAfficherCreditsParClient(void) {
@@ -339,55 +367,126 @@ void afficherCreditsClient(CreditNode *head, int idClient) {
     int local = 0;
     if (!head) { head = chargerCredits(); local = 1; }
 
-    clear();
-    titre("VOS DOSSIERS DE CREDIT");
 
-    if (!head) { printf(JAUNE "Aucun credit enregistre.\n" RESET); printf("\nAppuyez sur Entrer..."); getchar(); return; }
+
+    // Utilisation du titre stylisé (identique aux menus)
+    printf(CYAN);
+    espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+    espaceCentre(); printf("█          VOS DOSSIERS DE CREDIT        █\n");
+    espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+    printf(RESET);
+    printf("\n");
+
+    if (!head) {
+        espaceCentre(); printf(JAUNE "      Aucun credit enregistre.\n" RESET);
+        printf("\n      Appuyez sur Entrer..."); getchar();
+        return;
+    }
+
+    // --- EN-TÊTE DU TABLEAU ---
+    printf(CYAN);
+    espaceCentre(); printf("╔══════╦════════════╦═════════╦════════════╦══════════╗\n");
+    espaceCentre(); printf("║  ID  ║  MONTANT   ║ MENSUAL ║   RESTE    ║   ETAT   ║\n");
+    espaceCentre(); printf("╠══════╬════════════╬═════════╬════════════╬══════════╣\n");
+    printf(RESET);
 
     int found = 0;
     CreditNode *p;
-    printf(CYAN "%-4s | %-12s | %-8s | %-10s | %-10s | %-8s\n" RESET, "ID", "MONTANT", "TAUX", "MENSU.", "RESTE", "ETAT");
     for (p = head; p; p = p->suiv) {
         Credit *c = &p->credit;
         if (c->idClient == idClient) {
-            printf("%-4d | %-10.2lf | %-6.2lf%% | %-10.2lf | %-10.2lf | %s%s" RESET "\n",
-                   c->idCredit, c->montant, c->taux, c->mensualite, c->montantRestant,
-                   c->etat == ETAT_ACTIF ? VERT : ROUGE,
-                   c->etat == ETAT_ACTIF ? "ACTIF":"CLOTURE");
+            espaceCentre();
+            printf(CYAN "║ " RESET "%-4d " CYAN "║ " RESET "%-10.2f " CYAN "║ " RESET "%-7.2f " CYAN "║ " RESET "%-10.2f " CYAN "║ " RESET,
+                   c->idCredit, c->montant, c->mensualite, c->montantRestant);
+
+            // Affichage de l'état avec couleur
+            if (c->etat == ETAT_ACTIF)
+                printf(VERT "%-8s" RESET CYAN " ║\n" RESET, "ACTIF");
+            else
+                printf(ROUGE "%-8s" RESET CYAN " ║\n" RESET, "CLOTURE");
+
             found = 1;
         }
     }
-    if (!found) printf(JAUNE "Vous n'avez aucun credit enregistre.\n" RESET);
+
+    // --- PIED DU TABLEAU ---
+    printf(CYAN);
+    if (!found) {
+        espaceCentre(); printf("║             AUCUN CREDIT TROUVE             ║\n");
+    }
+    espaceCentre(); printf("╚══════╩════════════╩═════════╩════════════╩══════════╝\n");
+    printf(RESET);
+
     if (local) libererCredits(head);
-    printf("\nAppuyez sur Entrer pour continuer...");
+
+    printf("\n      Appuyez sur Entrer pour continuer...");
     getchar();
 }
 
 void afficherTableauAmortissement(Credit *c) {
-    if (!c) { printf(ROUGE "Credit invalide.\n" RESET); return; }
+    if (!c) {
+        printf(ROUGE "      [!] Credit invalide.\n" RESET);
+        return;
+    }
+
     double montant = c->montant;
     int duree = c->duree;
     double mensualite = c->mensualite;
     double tauxM = c->taux / 100.0 / 12.0;
-
-  printf("\n" BLANC_GRAS "--- TABLEAU D'AMORTISSEMENT (ID %d) ---" RESET "\n", c->idCredit);
-  printf(CYAN "%-5s | %-12s| %-12s| %-12s" RESET "\n", "Mois", "Interet", "Principal", "Reste");
-   printf("------------------------------------------------------------\n");
-
     double reste = montant;
-    int m;
-    for (m = 1; m <= duree; ++m) {
+
+
+    // --- TITRE DU TABLEAU ---
+    printf(CYAN);
+    espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+    espaceCentre(); printf("█        TABLEAU D'AMORTISSEMENT         █\n");
+    espaceCentre(); printf("█            CREDIT ID : %-5d           █\n", c->idCredit);
+    espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+    printf(RESET);
+
+    printf("\n");
+
+    // --- EN-TÊTE DES COLONNES ---
+    printf(CYAN);
+    espaceCentre(); printf("╔══════╦════════════╦════════════╦════════════╗\n");
+    espaceCentre(); printf("║ MOIS ║  INTERET   ║ PRINCIPAL  ║   RESTE    ║\n");
+    espaceCentre(); printf("╠══════╬════════════╬════════════╬════════════╣\n");
+    printf(RESET);
+
+    for (int m = 1; m <= duree; ++m) {
         double interet = reste * tauxM;
         double principal = mensualite - interet;
+
         if (principal < 0) principal = 0;
         reste -= principal;
         if (reste < 0) reste = 0;
-        printf("%-5d | %-10.2lf | %-10.2lf | %-10.2lf\n", m, interet, principal, reste);
+
+        // Affichage de la ligne
+        espaceCentre();
+        printf(CYAN "║ " RESET "%-4d "
+               CYAN "║ " RESET "%-10.2f "
+               CYAN "║ " RESET "%-10.2f "
+               CYAN "║ " RESET "%-10.2f "
+               CYAN "║" RESET "\n",
+               m, interet, principal, reste);
+
+        // Optionnel : Une petite ligne de séparation tous les 12 mois (1 an)
+        if (m % 12 == 0 && m != duree) {
+            espaceCentre();
+            printf(CYAN "╟──────╫────────────╫────────────╫────────────╢" RESET "\n");
+        }
+
         if (reste <= 0.0) break;
     }
-    printf("------------------------------------------------------------\n");
-}
 
+    // --- PIED DU TABLEAU ---
+    printf(CYAN);
+    espaceCentre(); printf("╚══════╩════════════╩════════════╩════════════╝\n");
+    printf(RESET);
+
+    printf("\n      Appuyez sur Entrer pour revenir...");
+    getchar();
+}
 /* --------------- Fonctions Transversales --------------- */
 
 int appliquerPaiementSurCredit(int idCredit, double montantPaiement) {
@@ -452,26 +551,40 @@ void menuGestionCredits(void) {
 
     do {
         clear();
-        espaceCentre();cadre();
-        espaceCentre();printf("                            "CYAN"💰  GESTION DES CREDITS  "RESET"        \n");
-        espaceCentre();cadre();
-        printf(BLANC_GRAS);
-        espaceCentre();printf("                    +-----------------------------------------------+\n");
-        espaceCentre();printf("                    |                                               |\n");
-        espaceCentre();printf("                    |  1. Ajouter un nouveau credit                 |\n");
-        espaceCentre();printf("                    |  2. Details d'un credit (Amortissement)       |\n");
-        espaceCentre();printf("                    |  3. Modifier un credit                        |\n");
-        espaceCentre();printf("                    |  4. Cloturer un credit                        |\n");
-        espaceCentre();printf("                    |  5. Afficher tous les credits                 |\n");
-        espaceCentre();printf("                    |  6. Afficher credits actifs                   |\n");
-        espaceCentre();printf("                    |  7. Credits par client                        |\n");
-        espaceCentre();printf("                    |  8. Supprimer un credit                       |\n");
-        espaceCentre();printf("                    |  9. Retour au Menu Admin                      |\n");
-        espaceCentre();printf("                    +-----------------------------------------------+\n");
-        printf(RESET);
-        printf("\n");
-         espaceCentre(); printf("            ➤ Votre choix : ");
 
+        // --- EN-TÊTE CYAN (Bleu Ciel) ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█          GESTION DES CREDITS           █\n");
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
+
+        printf("\n");
+
+        // --- OPTIONS EN BLANC ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Ajouter un nouveau credit\n");
+        espaceCentre(); printf("   [2]  Details d'un credit (Amortissement)\n");
+        espaceCentre(); printf("   [3]  Modifier un credit\n");
+        espaceCentre(); printf("   [4]  Cloturer un credit\n");
+        espaceCentre(); printf("   [5]  Afficher tous les credits\n");
+        espaceCentre(); printf("   [6]  Afficher credits actifs\n");
+        espaceCentre(); printf("   [7]  Credits par client\n");
+        espaceCentre(); printf("   [8]  Supprimer un credit\n");
+
+        // Retour en Cyan pour bien le distinguer
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [9]  RETOUR AU MENU ADMIN\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   ➤ votre choix : ");
+        printf(RESET);
 
         if (scanf("%d", &choix) != 1) {
             while(getchar() != '\n');
@@ -483,12 +596,12 @@ void menuGestionCredits(void) {
             case 1: ajouterCreditFromInteractive(); break;
             case 2: rechercherEtAfficherCredit(); break;
             case 3:
-                printf("ID du credit a modifier : ");
+                printf(CYAN "\n      ➤ ID du credit a modifier : " RESET);
                 if (scanf("%d", &id) == 1) modifierCredit(NULL, id);
                 while(getchar() != '\n');
                 break;
             case 4:
-                printf("ID du credit a cloturer : ");
+                printf(CYAN "\n      ➤ ID du credit a cloturer : " RESET);
                 if (scanf("%d", &id) == 1) cloturerCredit(NULL, id);
                 while(getchar() != '\n');
                 break;
@@ -496,8 +609,12 @@ void menuGestionCredits(void) {
             case 6: afficherCreditsActifs(NULL); break;
             case 7: rechercherEtAfficherCreditsParClient(); break;
             case 8: supprimerCreditInteractive(); break;
-            case 9: printf("Retour...\n"); break;
-            default: printf(ROUGE "Option invalide.\n" RESET); getchar(); break;
+            case 9: break;
+            default:
+                printf(ROUGE "\n      [!] Option invalide.\n" RESET);
+                printf("      Appuyez sur Entrer...");
+                getchar();
+                break;
         }
     } while (choix != 9);
 }

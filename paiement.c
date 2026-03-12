@@ -18,9 +18,9 @@
 
 // ====== Fonctions utilitaires ======
 
-// Calculer la mensualité d'un crédit donné
+// Calculer la mensualitÃ© d'un crÃ©dit donnÃ©
 double calculerMensualiteCredit(Credit credit) {
-    // Utiliser la fonction du module crédit
+    // Utiliser la fonction du module crÃ©dit
     return calculerMensualite(credit.montant, credit.taux, credit.duree);
 }
 
@@ -133,7 +133,7 @@ int verifierIntegritePaiements(CreditNode *credits, PaiementNode *paiements) {
             printf("Erreur integrite : IDPaiement duplique (%d)\n", p->data.IDPaiement);
             erreurs++;
         } else {
-            // Ajouter l'ID à la liste
+            // Ajouter l'ID Ã  la liste
             if (nbIds >= capaciteIds) {
                 capaciteIds = capaciteIds == 0 ? 16 : capaciteIds * 2;
                 idsPaiements = (int*)realloc(idsPaiements, capaciteIds * sizeof(int));
@@ -185,7 +185,7 @@ int verifierIntegritePaiements(CreditNode *credits, PaiementNode *paiements) {
 PaiementNode* ajouterPaiementListe(PaiementNode *tete, Paiement p) {
     PaiementNode *nouveau = (PaiementNode*)malloc(sizeof(PaiementNode));
     if (!nouveau) {
-        fprintf(stderr, "Erreur: Impossible d'allouer la mémoire pour le paiement\n");
+        fprintf(stderr, "Erreur: Impossible d'allouer la mÃ©moire pour le paiement\n");
         return tete;
     }
 
@@ -266,7 +266,7 @@ void genererCalendrierPaiements(Credit *credit) {
     char dateCourante[11];
     strcpy(dateCourante, credit->date_debut);
 
-    // Calcul de l'ID de d�part pour les paiements
+    // Calcul de l'ID de départ pour les paiements
     int idBase = 1;
     PaiementNode *temp = listeExistante;
     while (temp != NULL) {
@@ -301,7 +301,7 @@ int sauvegarderPaiementsFichier(PaiementNode *liste) {
         return 0;
     }
 
-    // En-tête
+    // En-tÃªte
     fprintf(f, "%-10s %-10s %-6s %-12s %-15s %-12s %-12s %-6s\n",
             "IDPaiement", "IDCredit", "Mois", "Montant", "MontantPenalite",
             "DatePrevue", "DatePaiement", "Statut");
@@ -352,15 +352,15 @@ PaiementNode* chargerPaiementsFichier(void) {
     char *ptr = ligne;
     while (*ptr && isspace((unsigned char)*ptr)) ptr++;
     if (!isdigit((unsigned char)*ptr) && *ptr != '-' ) {
-        // première ligne en-tête -> ignorer
+        // premiÃ¨re ligne en-tÃªte -> ignorer
     } else {
-        // première ligne contient des données -> la traiter
-        // repositionner au début de la ligne pour traitement
-        // on remplit la structure à partir de 'ligne' ci-dessus
+        // premiÃ¨re ligne contient des donnÃ©es -> la traiter
+        // repositionner au dÃ©but de la ligne pour traitement
+        // on remplit la structure Ã  partir de 'ligne' ci-dessus
         Paiement p;
         int statutInt = 0;
         // format : IDPaiement IDCredit numMois montant montantPenalite datePrevue datePaiement statut
-        // toutes les colonnes sont séparées par espaces (dates n'ont pas d'espaces)
+        // toutes les colonnes sont sÃ©parÃ©es par espaces (dates n'ont pas d'espaces)
         if (sscanf(ligne, "%d %d %d %f %f %10s %10s %d",
                    &p.IDPaiement, &p.IDCredit, &p.numMois,
                    &p.montant, &p.montantPenalite,
@@ -389,7 +389,7 @@ PaiementNode* chargerPaiementsFichier(void) {
                         &p.montant, &p.montantPenalite,
                         p.datePrevue, p.datePaiement, &statutInt);
         if (nb < 8) {
-            // ligne mal formée -> ignorer ou tenter un parse tolérant
+            // ligne mal formÃ©e -> ignorer ou tenter un parse tolÃ©rant
             continue;
         }
         p.statut = (StatutPaiement)statutInt;
@@ -416,13 +416,13 @@ PaiementNode* chargerPaiementsFichier(void) {
 void lierPaiementsAuxCredits(CreditNode *credits, PaiementNode *paiements) {
     if (!credits || !paiements) return;
 
-    // Réinitialiser les listes paiements de chaque credit
+    // RÃ©initialiser les listes paiements de chaque credit
     CreditNode *c;
     for (c = credits; c != NULL; c = c->suiv) {
         c->credit.paiement = NULL;
     }
    PaiementNode *p;
-    // Parcourir la liste des paiements et rattacher chaque paiement au bon crédit
+    // Parcourir la liste des paiements et rattacher chaque paiement au bon crÃ©dit
     for (p = paiements; p != NULL; p = p->next) {
         // trouver le credit correspondant
         CreditNode *c = credits;
@@ -430,17 +430,17 @@ void lierPaiementsAuxCredits(CreditNode *credits, PaiementNode *paiements) {
             c = c->suiv;
         }
         if (c == NULL) {
-            // crédit non trouvé -> on peut logguer ou ignorer
+            // crÃ©dit non trouvÃ© -> on peut logguer ou ignorer
             continue;
         }
 
-        // créer une nouvelle copie du noeud paiement pour attacher au credit
+        // crÃ©er une nouvelle copie du noeud paiement pour attacher au credit
         PaiementNode *copie = (PaiementNode *)malloc(sizeof(PaiementNode));
         if (!copie) continue; // pb memoire, on passe au suivant
         copie->data = p->data;
         copie->next = NULL;
 
-        // attacher en fin de la liste du credit (préserver l'ordre venant du fichier)
+        // attacher en fin de la liste du credit (prÃ©server l'ordre venant du fichier)
         if (c->credit.paiement == NULL) {
             c->credit.paiement = copie;
         } else {
@@ -452,7 +452,7 @@ void lierPaiementsAuxCredits(CreditNode *credits, PaiementNode *paiements) {
 }
 
 
-// Fonction pour mettre à jour seulement le paiement modifié dans le fichier
+// Fonction pour mettre Ã  jour seulement le paiement modifiÃ© dans le fichier
 void miseAJourPaiementFichier(Paiement *paiement) {
     FILE *fIn = fopen(FICHIER_PAIEMENTS, "r");
     FILE *fOut = fopen("temp.txt", "w");
@@ -492,7 +492,7 @@ void miseAJourPaiementFichier(Paiement *paiement) {
 // Structure pour indexer les paiements par IDCredit (optimisation)
 typedef struct {
     int idCredit;
-    PaiementNode *paiements;  // Liste des paiements pour ce crédit
+    PaiementNode *paiements;  // Liste des paiements pour ce crÃ©dit
 } IndexPaiement;
 
 void executerPrelevementsAutomatiques(CreditNode *listeCredits, CompteClientNode *listeComptes, PaiementNode **paiementsEnRetard) {
@@ -506,14 +506,14 @@ void executerPrelevementsAutomatiques(CreditNode *listeCredits, CompteClientNode
 
     CreditNode *c = listeCredits;
     while (c != NULL) {
-        if (c->credit.etat == 0) { // Ignorer les cr�dits cl�tur�s
+        if (c->credit.etat == 0) { // Ignorer les crédits clôturés
             c = c->suiv;
             continue;
         }
 
         PaiementNode *p = tous;
         while (p != NULL) {
-            // Si le paiement appartient au cr�dit, est en attente et c'est aujourd'hui (ou pass�)
+            // Si le paiement appartient au crédit, est en attente et c'est aujourd'hui (ou passé)
             if (p->data.IDCredit == c->credit.idCredit &&
                 p->data.statut == STATUT_ATTENTE &&
                 strcmp(p->data.datePrevue, today) <= 0) {
@@ -521,24 +521,24 @@ void executerPrelevementsAutomatiques(CreditNode *listeCredits, CompteClientNode
                 CompteClientNode *compte = chercherCompte(listeComptes, c->credit.idClient);
 
                 if (compte && verifierSolde(compte, p->data.montant)) {
-                    // 1. D�bit du compte
+                    // 1. Débit du compte
                     effectuerPrelevement(compte, p->data.montant);
 
-                    // 2. Mise � jour statut m�moire
+                    // 2. Mise à jour statut mémoire
                     p->data.statut = STATUT_PAYE;
                     strcpy(p->data.datePaiement, today);
                     p->data.montantPenalite = 0.0f;
 
-                    // 3. SYNCHRO BINAIRE (Mise � jour de credits.bin)
+                    // 3. SYNCHRO BINAIRE (Mise à jour de credits.bin)
                     appliquerPaiementSurCredit(p->data.IDCredit, (double)p->data.montant);
 
                     printf(BLANC_GRAS "Prelevement reussi: Credit %d (%.2f DH)\n" RESET, c->credit.idCredit, p->data.montant);
                 } else {
-                    // �chec du pr�l�vement -> Retard
+                    // Échec du prélèvement -> Retard
                     p->data.statut = STATUT_ECHEC;
                     p->data.montantPenalite = PENALITE_RETARD;
 
-                    // Ajouter � la liste des retards pour affichage imm�diat
+                    // Ajouter à la liste des retards pour affichage immédiat
                     *paiementsEnRetard = ajouterPaiementListe(*paiementsEnRetard, p->data);
                     printf(ROUGE "Echec prelevement: Credit %d (Solde insuffisant)\n" RESET, c->credit.idCredit);
                 }
@@ -548,7 +548,7 @@ void executerPrelevementsAutomatiques(CreditNode *listeCredits, CompteClientNode
         c = c->suiv;
     }
 
-    // Sauvegarde globale apr�s les modifications
+    // Sauvegarde globale après les modifications
     sauvegarderPaiementsFichier(tous);
     sauvegarderComptesFichier(listeComptes);
     libererListePaiements(tous);
@@ -672,7 +672,7 @@ void menuPaiementsEnRetard(PaiementNode **paiementsEnRetard, CreditNode *listeCr
                 afficherPaiementsEnRetard(*paiementsEnRetard);
                 break;
             case 2:
-                paiementManuelMenu(paiementsEnRetard, listeCredits, listeComptes); // règlement manuel par l'admin
+                paiementManuelMenu(paiementsEnRetard, listeCredits, listeComptes); // rÃ¨glement manuel par l'admin
                 break;
             case 0:
                 break;
@@ -686,10 +686,9 @@ void menuPaiementsEnRetard(PaiementNode **paiementsEnRetard, CreditNode *listeCr
 
 void menuPaiements(CreditNode *listeCredits, CompteClientNode *listeComptes) {
     int choix;
-    // On charge les retards existants dans le fichier d�s l'ouverture du menu
     PaiementNode *paiementsEnRetard = NULL;
 
-    // Petite boucle pour scanner le fichier et remplir la liste des retards au d�but
+    // Initialisation des retards (Logique conservée)
     PaiementNode *tous = chargerPaiementsFichier();
     PaiementNode *curr = tous;
     while (curr) {
@@ -701,62 +700,87 @@ void menuPaiements(CreditNode *listeCredits, CompteClientNode *listeComptes) {
     libererListePaiements(tous);
 
     do {
-        printf("\n" GRAS "===========================================" RESET);
-        printf("\n" CYAN "          GESTION DES PAIEMENTS" RESET);
-        printf("\n" GRAS "===========================================" RESET);
-        printf("\n1. Afficher les paiements d'un credit");
-        printf("\n2. " GRAS "Executer les prelevements automatiques du jour" RESET);
-        printf("\n3. " GRAS "Gerer les paiements en retard (paiement manuel)" RESET);
-        printf("\n4. Afficher le capital restant du");
-        printf("\n5. Ajouter un credit � un client");
-        printf("\n6. Verifier l'integrite des paiements");
-        printf("\n0. " BLANC_GRAS "Retour" RESET);
-        printf("\n-------------------------------------------");
-        printf("\nVotre choix : ");
+        clear();
+
+        // --- EN-TÊTE CYAN ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█          GESTION DES PAIEMENTS         █\n");
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
+
+        printf("\n");
+
+        // --- OPTIONS EN BLANC ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Afficher les paiements d'un credit\n");
+        espaceCentre(); printf("   [2]  Executer les prelevements du jour\n");
+        espaceCentre(); printf("   [3]  Gerer les paiements en retard\n");
+        espaceCentre(); printf("   [4]  Afficher le capital restant du\n");
+        espaceCentre(); printf("   [5]  Ajouter un credit a un client\n");
+        espaceCentre(); printf("   [6]  Verifier l'integrite des paiements\n");
+
+        // Retour en Cyan
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [0]  RETOUR AU MENU ADMIN\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("  ➤    votre choix : ");
+        printf(RESET);
 
         if (scanf("%d", &choix) != 1) {
             while (getchar() != '\n');
             choix = -1;
         }
+        while (getchar() != '\n'); // Nettoyage buffer
 
         switch (choix) {
             case 1:
                 afficherPaiementsCreditMenu(listeCredits);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 2:
-                printf("\n" CYAN "Lancement des prelevements..." RESET "\n");
+                printf("\n" CYAN "      [i] Lancement des prelevements..." RESET "\n");
                 executerPrelevementsAutomatiques(listeCredits, listeComptes, &paiementsEnRetard);
-                // On sauvegarde les comptes imm�diatement apr�s les prelevements
                 sauvegarderComptesFichier(listeComptes);
+                printf(VERT "\n      [OK] Operations terminees." RESET);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 3:
-                // Appel du sous-menu des retards
                 menuPaiementsEnRetard(&paiementsEnRetard, listeCredits, listeComptes);
                 break;
             case 4:
                 capitalRestantMenu(listeCredits);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 5:
                 ajouterCreditMenu(listeCredits);
                 break;
             case 6:
-                printf("\n" CYAN "Verification de l'integrite..." RESET "\n");
+                printf("\n" CYAN "      [i] Verification de l'integrite..." RESET "\n");
                 PaiementNode *pCheck = chargerPaiementsFichier();
                 verifierIntegritePaiements(listeCredits, pCheck);
                 libererListePaiements(pCheck);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 0:
-                printf("\nRetour au menu principal...\n");
                 break;
             default:
-                printf(ROUGE "Choix invalide !" RESET "\n");
+                printf(ROUGE "\n      [!] Choix invalide.\n" RESET);
+                printf("      Appuyez sur Entrer..."); getchar();
         }
     } while (choix != 0);
 
     libererListePaiements(paiementsEnRetard);
 }
 
-/* Fonctions utilitaires pour vérifier solde et effectuer prélèvement */
+/* Fonctions utilitaires pour vÃ©rifier solde et effectuer prÃ©lÃ¨vement */
  int verifierSolde(CompteClientNode *compte, float montant) {
     if (!compte) return 0;
     return compte->compte.solde >= montant;
@@ -768,7 +792,7 @@ void effectuerPrelevement(CompteClientNode *compte, float montant) {
     }
 }
 
-/* Afficher les paiements d'un crédit */
+/* Afficher les paiements d'un crÃ©dit */
 void afficherPaiementsCreditMenu(CreditNode *listeCredits) {
     int idCredit;
     printf("ID du credit : ");
@@ -812,14 +836,14 @@ void afficherPaiementsCreditMenu(CreditNode *listeCredits) {
     }
 
     if (!trouve) {
-        printf("Aucun paiement trouvé pour ce crédit.\n");
+        printf("Aucun paiement trouvÃ© pour ce crÃ©dit.\n");
     }
 
     printf("-------------------------------------------------------------------------------------------\n");
     libererListePaiements(paiements);
 }
 
-/* Afficher le capital restant dû */
+/* Afficher le capital restant dÃ» */
 void capitalRestantMenu(CreditNode *listeCredits) {
     int idC;
     printf("\nEntrez l'ID du credit pour voir le capital restant : ");
@@ -828,7 +852,7 @@ void capitalRestantMenu(CreditNode *listeCredits) {
         return;
     }
 
-    // On cherche dans la liste charg�e depuis credits.bin
+    // On cherche dans la liste chargée depuis credits.bin
     CreditNode *c = rechercherCreditParId(listeCredits, idC);
 
     if (c != NULL) {
@@ -839,19 +863,19 @@ void capitalRestantMenu(CreditNode *listeCredits) {
         printf("\n Montant Initial   : %.2f DH", c->credit.montant);
         printf("\n Montant deja paye : %.2f DH", (c->credit.montant - c->credit.montantRestant));
         printf("\n CAPITAL RESTANT   : " JAUNE "%.2f DH" RESET, c->credit.montantRestant);
-        printf("\n Etat du dossier   : %s", (c->credit.etat == 1) ? "ACTIF" : "CL�TUR�");
+        printf("\n Etat du dossier   : %s", (c->credit.etat == 1) ? "ACTIF" : "CLÔTURÉ");
         printf("\n" CYAN "==========================================\n" RESET);
     } else {
         printf(ROUGE "Erreur : Aucun credit trouve avec l'ID %d dans le fichier binaire.\n" RESET, idC);
     }
 }
-/* Ajouter un crédit à un client */
+/* Ajouter un crÃ©dit Ã  un client */
 void ajouterCreditMenu(CreditNode *listeCredits) {
-    // Utiliser la fonction existante du module crédita
+    // Utiliser la fonction existante du module crÃ©dita
     ajouterCreditFromInteractive();
 }
 
-/* Wrapper pour le menu principal - charge les données nécessaires */
+/* Wrapper pour le menu principal - charge les donnÃ©es nÃ©cessaires */
 void menuGestionPaiements(void) {
     printf("\n"BLANC_GRAS "Chargement des bases de donnees..." RESET "\n");
 
@@ -871,5 +895,5 @@ void menuGestionPaiements(void) {
     libererCredits(listeCredits);
     libererListeComptes(listeComptes);
 
-    printf(GRAS "Donnees securis�es. Fermeture du module." RESET "\n");
+    printf(GRAS "Donnees securisées. Fermeture du module." RESET "\n");
 }

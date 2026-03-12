@@ -18,16 +18,33 @@ extern void libererListe(ClientNode *tete);
 void afficherCompte(CompteClientNode *c) {
     if (!c) return;
 
-    printf("\n" GRAS "==========================================" RESET);
-    printf("\n" CYAN "            DETAILS DU COMPTE           " RESET);
-    printf("\n" GRAS "==========================================" RESET);
-    printf("\n" GRAS "  ID      : " RESET "%d", c->compte.client.ID);
-    printf("\n" GRAS "  Nom     : " RESET "%s %s", c->compte.client.prenom, c->compte.client.nom);
-    printf("\n" GRAS "  CIN     : " RESET "%s", c->compte.client.cin);
-    printf("\n" GRAS "  Tel     : " RESET "%s", c->compte.client.telephone);
-    printf("\n" GRAS "  Email   : " RESET "%s", c->compte.client.email);
-    printf("\n" GRAS "  Solde   : " RESET VERT "%.2f DH" RESET, c->compte.solde);
-    printf("\n" GRAS "--------------------------------------------" RESET "\n");
+    // --- EN-TÊTE DE LA FICHE ---
+    printf("\n");
+    espaceCentre(); printf(CYAN "╔══════════════════════════════════════════╗" RESET "\n");
+    espaceCentre(); printf(CYAN "║" RESET BLANC_GRAS "            DETAILS DU COMPTE             " RESET CYAN "║" RESET "\n");
+    espaceCentre(); printf(CYAN "╠══════════════════════════════════════════╣" RESET "\n");
+
+    // --- CORPS DE LA FICHE ---
+    // On aligne les étiquettes à gauche pour un look "formulaire"
+    espaceCentre(); printf(CYAN "║" RESET "  ID Client : " BLANC_GRAS "%-28d" RESET CYAN "║" RESET "\n", c->compte.client.ID);
+
+    espaceCentre(); printf(CYAN "║" RESET "  Titulaire : " BLANC_GRAS "%-12s %-15s" RESET CYAN "║" RESET "\n",
+                           c->compte.client.prenom, c->compte.client.nom);
+
+    espaceCentre(); printf(CYAN "║" RESET "  CIN       : " BLANC_GRAS "%-28s" RESET CYAN "║" RESET "\n", c->compte.client.cin);
+
+    espaceCentre(); printf(CYAN "║" RESET "  Telephone : " BLANC_GRAS "%-28s" RESET CYAN "║" RESET "\n", c->compte.client.telephone);
+
+    espaceCentre(); printf(CYAN "║" RESET "  Email     : " BLANC_GRAS "%-28s" RESET CYAN "║" RESET "\n", c->compte.client.email);
+
+    // --- SEPARATEUR INTERNE ---
+    espaceCentre(); printf(CYAN "╟──────────────────────────────────────────╢" RESET "\n");
+
+    // --- SOLDE (En évidence) ---
+    espaceCentre(); printf(CYAN "║" RESET "  SOLDE ACTUEL : " VERT "%-21.2f DH" RESET CYAN " ║" RESET "\n", c->compte.solde);
+
+    // --- PIED DE FICHE ---
+    espaceCentre(); printf(CYAN "╚══════════════════════════════════════════╝" RESET "\n");
 }
 
 // ==========================================
@@ -268,46 +285,90 @@ void afficherStatistiquesComptes(void) {
     libererListeComptes(liste);
 }
 
-void menuGestionComptes(void){
+void menuGestionComptes(void) {
     int choix;
     do {
+        clear();
 
-        printf("\n" GRAS "==========================================" RESET);
-        printf("\n" CYAN "           GESTION DES COMPTES            " RESET);
-        printf("\n" GRAS "==========================================" RESET);
-        printf("\n1. Lister des comptes     | 2. Chercher                 | 3. " GRAS "Creer" RESET);
-        printf("\n4. Modifier compte        | 5. " GRAS "Deposer" RESET " | 6. " ROUGE "Retirer" RESET);
-        printf("\n7. Statistiques           | 8. Integrite                | 0. Retour");
-        printf("\n" GRAS "Votre choix : " RESET);
+        // --- EN-TÊTE CYAN ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█           GESTION DES COMPTES          █\n");
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
+
+        printf("\n");
+
+        // --- OPTIONS EN BLANC ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Lister tous les comptes\n");
+        espaceCentre(); printf("   [2]  Rechercher un compte (ID)\n");
+        espaceCentre(); printf("   [3]  Creer un nouveau compte\n");
+        espaceCentre(); printf("   [4]  Modifier un compte existant\n");
+        espaceCentre(); printf("   [5]  Effectuer un DEPOT\n");
+        espaceCentre(); printf("   [6]  Effectuer un RETRAIT\n");
+        espaceCentre(); printf("   [7]  Statistiques des comptes\n");
+        espaceCentre(); printf("   [8]  Verifier l'integrite du systeme\n");
+
+        // Retour en Cyan
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [0]  RETOUR AU MENU ADMIN\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("  ➤    votre choix : ");
+        printf(RESET);
 
         if (scanf("%d", &choix) != 1) { while (getchar() != '\n'); choix = -1; }
+        while (getchar() != '\n'); // Nettoyage du buffer
+
         switch (choix) {
             case 1: {
                 CompteClientNode *l = chargerComptesFichier();
                 CompteClientNode *t = l;
                 while(t) { afficherCompte(t); t = t->next; }
                 libererListeComptes(l);
+                printf("\nAppuyez sur Entrer pour continuer..."); getchar();
                 break;
             }
             case 2: {
-                int id; printf("ID : "); scanf("%d", &id);
+                int id;
+                printf(CYAN "      ➤ Entrez l'ID du compte : " RESET);
+                scanf("%d", &id); getchar();
                 CompteClientNode *l = chargerComptesFichier();
                 CompteClientNode *c = chercherCompte(l, id);
-                if(c) afficherCompte(c); else printf(ROUGE "Introuvable." RESET "\n");
+                if(c) afficherCompte(c);
+                else printf(ROUGE "      [!] Compte introuvable.\n" RESET);
                 libererListeComptes(l);
+                printf("\nAppuyez sur Entrer..."); getchar();
                 break;
             }
             case 3: creerCompteMenu(); break;
             case 5: deposerMenu(); break;
             case 6: retirerMenu(); break;
-            case 7: afficherStatistiquesComptes(); break;
+            case 7:
+                afficherStatistiquesComptes();
+                printf("\nAppuyez sur Entrer..."); getchar();
+                break;
             case 8: {
                 ClientNode *cl = listerClientsFichier();
                 CompteClientNode *co = chargerComptesFichier();
                 verifierIntegriteComptes(cl, co);
                 libererListe(cl); libererListeComptes(co);
+                printf("\nAppuyez sur Entrer..."); getchar();
                 break;
             }
+            case 0: break;
+            default:
+                printf(ROUGE "\n      [!] Choix invalide.\n" RESET);
+                printf("      Appuyez sur Entrer...");
+                getchar();
+                break;
         }
     } while (choix != 0);
 }

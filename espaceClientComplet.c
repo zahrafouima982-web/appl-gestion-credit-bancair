@@ -78,52 +78,75 @@ CompteClientNode* espaceClientComplet(void) {
     int idSaisi;
     char mdpSaisi[50];
 
-    // --- Connexion client ---
-    espaceCentre();cadre();
-    printf(CYAN "                                              CONNEXION CLIENT             \n" RESET);
-    espaceCentre();cadre();
-printf("\n");
-    espaceCentre();printf(YELLOW "ID : " RESET);
+    // --- CONNEXION CLIENT (STYLE UNIFIÉ) ---
+    clear();
+    printf(CYAN);
+    espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+    espaceCentre(); printf("█            CONNEXION CLIENT            █\n");
+    espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+    printf(RESET);
+
+    printf("\n");
+    espaceCentre(); printf(CYAN "  ➤ " RESET "ID Utilisateur : ");
     scanf("%d", &idSaisi);
     while(getchar() != '\n');
 
-    espaceCentre();printf(YELLOW "Mot de passe : " RESET);
+    espaceCentre(); printf(CYAN "  ➤ " RESET "Mot de passe   : ");
     scanf("%49s", mdpSaisi);
     while(getchar() != '\n');
 
     if (!chargerCompteClient(idSaisi, &cc)) {
-        printf(RED " ID non trouvable.\n" RESET);
+        printf(ROUGE "\n      [!] ID non trouvable.\n" RESET);
+        printf("      Appuyez sur Entrer..."); getchar();
         return NULL;
     }
     if (strcmp(mdpSaisi, cc.motDePasse) != 0) {
-        printf(RED "Mot de passe incorrect.\n" RESET);
+        printf(ROUGE "\n      [!] Mot de passe incorrect.\n" RESET);
+        printf("      Appuyez sur Entrer..."); getchar();
         return NULL;
     }
 
-    espaceCentre();printf(GREEN "Authentification reussie ! Bienvenue %s %s\n" RESET, cc.client.nom, cc.client.prenom);
+    printf(VERT "\n       Authentification reussie ! Bienvenue %s %s\n" RESET, cc.client.nom, cc.client.prenom);
+    printf("      Chargement de votre espace... Appuyez sur Entrer."); getchar();
 
-    // --- Créer un noeud temporaire pour le menu ---
+    // --- Créer un noeud temporaire (Logique conservée) ---
     compteConnecte = (CompteClientNode*) malloc(sizeof(CompteClientNode));
     compteConnecte->compte = cc;
     compteConnecte->next = NULL;
 
-    // --- Menu client ---
+    // --- MENU CLIENT ---
     do {
-        espaceCentre();printf(BLEU "                       -----👤 Client ID %d : Menu ----\n" RESET, compteConnecte->compte.client.ID);
-        espaceCentre();printf(BLANC_GRAS"          +---------------------------------------------------+\n"RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  1. Consulter mes informations                    |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  2. ⚙ Modifier mes informations personnelles      |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  3. 📝 Soumettre une nouvelle demande de credit   |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  4. 📄 Voir l'historique de mes demandes          |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  5. 💰 Voir mes credits actifs                    |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  6. Acceder aux paiements d'un credit             |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  7. 📊 Voir mon resume financier (Statistiques)   |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  8. 🧮 Simuler mon credit                         |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  9. 📑 Voir les offres disponibles                |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS "         |  0. 🔙 Deconnexion                                |\n" RESET);
-        espaceCentre();printf(BLANC_GRAS"          +---------------------------------------------------+\n"RESET);
+        clear();
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█       BIENVENUE DANS VOTRE ESPACE      █\n");
+        espaceCentre(); printf("█       ID SESSION : %-19d █\n", compteConnecte->compte.client.ID);
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
+
         printf("\n");
-         espaceCentre(); printf("            ➤ Votre choix : ");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Consulter mes informations\n");
+        espaceCentre(); printf("   [2]  Modifier mes infos personnelles\n");
+        espaceCentre(); printf("   [3]  Soumettre une demande de credit\n");
+        espaceCentre(); printf("   [4]  Voir l'historique de mes demandes\n");
+        espaceCentre(); printf("   [5]  Voir mes credits actifs\n");
+        espaceCentre(); printf("   [6]  Acceder aux paiements d'un credit\n");
+        espaceCentre(); printf("   [7]  Voir mon resume financier\n");
+        espaceCentre(); printf("   [8]  Simuler mon credit\n");
+        espaceCentre(); printf("   [9]  Voir les offres disponibles\n");
+
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [0]  DECONNEXION\n");
+        printf(RESET);
+
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("  ➤   votre choix : ");
+        printf(RESET);
 
         if (scanf("%d", &choix) != 1) {
             while(getchar() != '\n');
@@ -134,6 +157,7 @@ printf("\n");
         switch (choix) {
             case 1:
                 afficherInformationsClient(compteConnecte);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 2:
                 modifierInformationsPersonnelles(compteConnecte);
@@ -143,6 +167,7 @@ printf("\n");
                 break;
             case 4:
                 consulterDemandesCredit(compteConnecte);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 5:
                 voirMesCredits(compteConnecte);
@@ -152,18 +177,22 @@ printf("\n");
                 break;
             case 7:
                 afficherStatistiquesClient(compteConnecte->compte.client.ID);
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 8:
                 simulationCreditSimple();
                 break;
             case 9:
                 afficherOffresCredit();
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             case 0:
-                printf(GREEN BOLD "\nDeconnexion reussie. Merci d'avoir utilise notre plateforme bancaire.\n" RESET);
+                printf(VERT "\n      [OK] Deconnexion reussie. A bientot !\n" RESET);
+                printf("      Appuyez sur Entrer..."); getchar();
                 break;
             default:
-                printf(RED "Option invalide. Veuillez ressayer.\n" RESET);
+                printf(ROUGE "\n      [!] Option invalide.\n" RESET);
+                printf("      Appuyez sur Entrer..."); getchar();
                 break;
         }
 

@@ -94,7 +94,7 @@ void afficherStatistiquesDemandes(void) {
     printf("\n"GRAS "============================================" RESET);
     printf("\n"CYAN "        ANALYSE DE L EFFICACITE DES DEMANDES            " RESET);
     printf("\n"GRAS "============================================" RESET);
-    printf("\n Total des Demandes re�ues     : %d", stats.totalDemandes);
+    printf("\n Total des Demandes reçues     : %d", stats.totalDemandes);
     printf("\n Demandes " VERT "Acceptees" RESET "            : %d", stats.demandesAcceptees);
     printf("\n Demandes " ROUGE "Refusees" RESET "             : %d", stats.demandesRefusees);
     printf("\n Demandes " BLANC_GRAS "EN ATTENTE" RESET "           : %d", stats.demandesEnAttente);
@@ -137,7 +137,7 @@ void afficherStatistiquesPaiements(void) {
     printf("\n Paiements en " ROUGE "Echec/Retard" RESET "     : %d", stats.paiementsEchoues);
     printf("\n" GRAS " --------------------------------------------------" RESET);
     printf("\n Montant total paye            : " VERT "%.2lf DH" RESET, stats.montantTotalPaye);
-    printf("\n Montant total � recouvrer     : " ROUGE "%.2lf DH" RESET, stats.montantTotalEchoue);
+    printf("\n Montant total à recouvrer     : " ROUGE "%.2lf DH" RESET, stats.montantTotalEchoue);
     printf("\n Penalites cumulees            : " JAUNE "%.2lf DH" RESET, stats.penalitesCumulees);
     printf("\n" GRAS "==================================================" RESET "\n");
 
@@ -191,39 +191,80 @@ void afficherStatistiquesClient(int idClient) {
 
 /* =============== MENU STATISTIQUES =============== */
 
-void sousmenuStatistique(void){
+void sousmenuStatistique(void) {
     int choix;
     do {
+        clear();
 
-        printf("\n" GRAS "============================================" RESET);
-        printf("\n" CYAN "          MENU STATISTIQUES                 " RESET);
-        printf("\n" GRAS "============================================" RESET);
-        printf("\n== 1. Statistiques Credits (Globaux)        ==");
-        printf("\n== 2. Statistiques Paiements                ==");
-        printf("\n== 3. Statistiques Demandes                 ==");
-        printf("\n== 4. Statistiques Comptes                  ==");
-        printf("\n== 5. Analyse par Client (Individuelle)     ==");
-        printf("\n==6. " ROUGE "Retour au Menu Admin" RESET "             ==");
-        printf("\n" GRAS "============================================" RESET);
-        printf("\n" JAUNE "Votre choix : " RESET);
+        // --- EN-TÊTE CYAN ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█             STATISTIQUES               █\n");
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
 
-        if (scanf("%d", &choix) != 1) { while(getchar()!='\n'); choix = 0; }
-        while(getchar()!='\n');
+        printf("\n");
+
+        // --- OPTIONS EN BLANC ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Statistiques Credits (Globaux)\n");
+        espaceCentre(); printf("   [2]  Statistiques Paiements\n");
+        espaceCentre(); printf("   [3]  Statistiques Demandes\n");
+        espaceCentre(); printf("   [4]  Statistiques Comptes\n");
+        espaceCentre(); printf("   [5]  Analyse par Client (Individuelle)\n");
+
+        // Retour en Cyan
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [6]  RETOUR AU MENU ADMIN\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("  ➤  votre choix : ");
+        printf(RESET);
+
+        if (scanf("%d", &choix) != 1) { while(getchar() != '\n'); choix = 0; }
+        while(getchar() != '\n');
 
         switch (choix) {
-            case 1: afficherStatistiquesCredit(); break;
-            case 2: afficherStatistiquesPaiements(); break;
-            case 3: afficherStatistiquesDemandes(); break;
-            case 4: afficherStatistiquesComptes(); break;
+            case 1:
+                afficherStatistiquesCredit();
+                printf("\n      Appuyez sur Entrer..."); getchar();
+                break;
+            case 2:
+                afficherStatistiquesPaiements();
+                printf("\n      Appuyez sur Entrer..."); getchar();
+                break;
+            case 3:
+                afficherStatistiquesDemandes();
+                printf("\n      Appuyez sur Entrer..."); getchar();
+                break;
+            case 4:
+                afficherStatistiquesComptes();
+                printf("\n      Appuyez sur Entrer..."); getchar();
+                break;
             case 5: {
                 int idClient;
-                printf(JAUNE "Entrez l'ID du Client : " RESET);
-                if (scanf("%d", &idClient) == 1) afficherStatistiquesClient(idClient);
-                while(getchar()!='\n');
+                printf("\n" CYAN "      ➤ Entrez l'ID du Client : " RESET);
+                if (scanf("%d", &idClient) == 1) {
+                    while(getchar() != '\n'); // Nettoyage buffer
+                    afficherStatistiquesClient(idClient);
+                } else {
+                    while(getchar() != '\n');
+                }
+                printf("\n      Appuyez sur Entrer..."); getchar();
                 break;
             }
-            case 6: printf(VERT "Retour...\n" RESET); break;
-            default: printf(ROUGE "Option invalide.\n" RESET); break;
+            case 6: break; // Retour
+            default:
+                printf(ROUGE "\n      [!] Option invalide.\n" RESET);
+                printf("      Appuyez sur Entrer...");
+                getchar();
+                break;
         }
     } while (choix != 6);
 }

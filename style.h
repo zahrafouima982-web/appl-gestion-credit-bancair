@@ -33,7 +33,7 @@ static inline void titre(const char* texte) {
 
 // Cadre décoratif
 static inline void cadre() {
-    printf( ""CYAN"======================================================================================="RESET"\n" );
+    printf( ""CYAN" ________________________________________________________ "RESET"\n" );
 }
 
 // Logo BANQUE stylé
@@ -49,28 +49,26 @@ static inline void logoBanque() {
 
     printf(RESET);
 printf("\n");
-   espaceCentre(); printf(CYAN "             🏦 GESTION DES CREDITS BANCAIRES\n\n" RESET);
+   espaceCentre(); printf(CYAN "              GESTION DES CREDITS BANCAIRES\n\n" RESET);
 }
 static inline void logoAdmin() {
 
     printf(CYAN);
 
-    espaceCentre(); printf("==========================================================================\n");
-    espaceCentre(); printf("                              👨‍💼 CONNEXION ADMIN              \n");
-    espaceCentre(); printf("==========================================================================\n");
-
+   espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+   espaceCentre(); printf("█              CONNEXION ADMIN           █            \n");
+   espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
     printf(RESET);
 
 
 }
 static inline void logoClient() {
 
-    printf(BLEU);
+    printf(CYAN);
 
-    espaceCentre(); printf("==========================================================================\n");
-    espaceCentre(); printf("                           👤 CONNEXION CLIENT              \n");
-    espaceCentre(); printf("==========================================================================\n");
-
+    espaceCentre(); printf("         ╔═══════════════════════════════════╗\n");
+    espaceCentre(); printf("                      CONNEXION CLIENT             \n");
+    espaceCentre(); printf("         ╚═══════════════════════════════════╝\n");
     printf(RESET);
 
     espaceCentre(); printf("                    Consultation et services\n\n");
@@ -78,35 +76,30 @@ static inline void logoClient() {
 
 // Menu connexion
 static inline int ecranConnexion() {
-
     int choix;
 
-
-
-    printf("\n");
-printf(BLANC_GRAS);
-        espaceCentre(); printf("         +------------------------------------+\n");
-
-    printf(BLANC_GRAS);
-        espaceCentre(); printf("         |   1.👨‍💼 Connexion ADMIN             |\n");
-
-    printf(BLANC_GRAS);
-        espaceCentre(); printf("         |   2.👤 Connexion CLIENT            |\n");
-
-    printf(BLANC_GRAS);
-        espaceCentre(); printf("         |   0.🚪 Quitter                     |\n");
-
+    printf("\n\n"); // Espace au dessus
     printf(BLANC_GRAS);
 
+    // Haut du cadre
+    espaceCentre(); printf("         ╔═══════════════════════════════════╗\n");
 
-        espaceCentre(); printf("         +------------------------------------+\n");
-printf(RESET);
+    // Lignes du menu (ajustées pour être de même largeur)
+    espaceCentre(); printf("         ║       1.  Connexion ADMIN         ║\n");
+    espaceCentre(); printf("         ║       2.  Connexion CLIENT        ║\n");
+    espaceCentre(); printf("         ║       0.  Quitter                 ║\n");
+
+    // Bas du cadre
+    espaceCentre(); printf("         ╚═══════════════════════════════════╝\n");
+
+    printf(RESET);
     printf("\n");
 
-          espaceCentre(); printf("               ➤ Votre choix : ");
-    scanf("%d",&choix);
+    espaceCentre(); printf("    ➤ Votre choix : ");
+    scanf("%d", &choix);
 
     return choix;
+
 }
 
 #endif

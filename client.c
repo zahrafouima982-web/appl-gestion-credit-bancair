@@ -407,14 +407,45 @@ void trierClients(void) {
 void menuGestionClients(void) {
     int choix;
     do {
+        clear();
 
-        printf("\n" GRAS "=========================================================" RESET);
-        printf("\n" CYAN "          GESTION DES CLIENTS           " RESET);
-        printf("\n" GRAS "=========================================================" RESET);
-        printf("\n1. " GRAS "Ajouter" RESET " | 2. Modifier | 3. " ROUGE "Supprimer" RESET);
-        printf("\n4. Rechercher            | 5. Lister   | 6. Trier     | 0. Retour");
-        printf("\n" GRAS "Votre choix : " RESET);
-        if (scanf("%d", &choix) != 1) { while (getchar() != '\n'); choix = -1; }
+        // --- EN-TÊTE CYAN (Identique au menu Crédit) ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█           GESTION DES CLIENTS          █\n");
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
+
+        printf("\n");
+
+        // --- OPTIONS EN BLANC ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Ajouter un nouveau client\n");
+        espaceCentre(); printf("   [2]  Modifier les informations client\n");
+        espaceCentre(); printf("   [3]  Supprimer un client du systeme\n");
+        espaceCentre(); printf("   [4]  Rechercher un client\n");
+        espaceCentre(); printf("   [5]  Lister tous les clients\n");
+        espaceCentre(); printf("   [6]  Trier la base de donnees clients\n");
+
+        // Retour en Cyan
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [0]  RETOUR AU MENU ADMIN\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   ➤  votre choix : ");
+        printf(RESET);
+
+        if (scanf("%d", &choix) != 1) {
+            while (getchar() != '\n');
+            choix = -1;
+        }
+
 
         switch (choix) {
             case 1: ajouterClient(); break;
@@ -423,6 +454,12 @@ void menuGestionClients(void) {
             case 4: rechercherClient(); break;
             case 5: listerClients(); break;
             case 6: trierClients(); break;
+            case 0: break; // Retour
+            default:
+                printf(ROUGE "\n      [!] Option invalide.\n" RESET);
+                printf("      Appuyez sur Entrer...");
+                getchar();
+                break;
         }
     } while (choix != 0);
 }

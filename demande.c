@@ -238,40 +238,76 @@ void menuDemandes(void) {
     int choix;
     do {
         clear();
-        espaceCentre();cadre();
-        espaceCentre();printf("" CYAN "                           📄  GESTION DES DEMANDES        " RESET "\n");
-        espaceCentre();cadre();
 
-        espaceCentre(); printf(""BLANC_GRAS"                   +--------------------------------------+"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   |                                      |"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   | 1. Afficher les demandes " JAUNE "EN ATTENTE" RESET "  |"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   | 2. Traiter les demandes EN ATTENTE   |"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   | 3. Afficher toutes les demandes      |"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   | 4. Supprimer une demande             |"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   | 5. Retour au Menu Admin              |"RESET" \n");
-        espaceCentre(); printf(""BLANC_GRAS"                   |                                      |"RESET"\n");
-        espaceCentre(); printf(""BLANC_GRAS"                   +--------------------------------------+"RESET"\n");
+        // --- EN-TÊTE CYAN ---
+        printf(CYAN);
+        espaceCentre(); printf("█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█\n");
+        espaceCentre(); printf("█          GESTION DES DEMANDES          █\n");
+        espaceCentre(); printf("█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█\n");
+        printf(RESET);
 
         printf("\n");
-         espaceCentre(); printf("            ➤ Votre choix : ");
-        if (scanf("%d", &choix) != 1) { while(getchar() != '\n'); choix = 0; }
-        while(getchar() != '\n');
+
+        // --- OPTIONS EN BLANC ---
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("   [1]  Afficher les demandes EN ATTENTE\n");
+        espaceCentre(); printf("   [2]  Traiter les demandes en attente\n");
+        espaceCentre(); printf("   [3]  Afficher l'historique des demandes\n");
+        espaceCentre(); printf("   [4]  Supprimer une demande (ID)\n");
+
+        // Retour en Cyan
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("   [5]  RETOUR AU MENU ADMIN\n");
+        printf(RESET);
+
+        // --- LIGNE DE SEPARATION ---
+        printf(CYAN);
+        printf("\n");
+        espaceCentre(); printf("──────────────────────────────────────────\n");
+        printf(BLANC_GRAS);
+        espaceCentre(); printf("  ➤  votre choix : ");
+        printf(RESET);
+
+        if (scanf("%d", &choix) != 1) {
+            while(getchar() != '\n');
+            choix = 0;
+        }
+        while(getchar() != '\n'); // Nettoyage buffer
 
         switch (choix) {
-            case 1: afficherDemandesEnAttente(NULL); break;
-            case 2: traiterDemandesInteractive(); break;
-            case 3: afficherDemandes(NULL); break;
+            case 1:
+                afficherDemandesEnAttente(NULL);
+                break;
+            case 2:
+                traiterDemandesInteractive();
+                break;
+            case 3:
+                afficherDemandes(NULL);
+                break;
             case 4: {
-                int id; printf("ID a supprimer : ");
+                int id;
+                printf(CYAN "\n      ➤ ID de la demande a supprimer : " RESET);
                 if (scanf("%d", &id) == 1) {
+                    while(getchar() != '\n'); // Nettoyage buffer
                     DemandeNode *h = chargerDemandes();
                     supprimerDemandeParId(&h, id);
                     libererDemandes(h);
+                    printf(VERT "       Operation effectuee.\n" RESET);
+                } else {
+                    while(getchar() != '\n');
                 }
-                while(getchar() != '\n');
                 break;
             }
+            case 5: break; // Retour
+            default:
+                printf(ROUGE "\n      [!] Option invalide.\n" RESET);
+                break;
         }
-        if (choix != 5) { printf("\nAppuyez sur Entrer..."); getchar(); }
+
+        if (choix != 5) {
+            printf("\n      Appuyez sur Entrer pour continuer...");
+            getchar();
+        }
     } while (choix != 5);
 }
