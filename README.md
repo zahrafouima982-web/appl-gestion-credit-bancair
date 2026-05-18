@@ -119,6 +119,10 @@ This project helped practice:
 - Banking system logic
 
 ---
+<img width="1034" height="857" alt="Capture d&#39;écran 2026-03-11 232237" src="https://github.com/user-attachments/assets/0152057f-d284-45a1-89f3-54fc35187a62" />
+<img width="908" height="773" alt="Capture d&#39;écran 2026-03-11 232416" src="https://github.com/user-attachments/assets/cb87b284-dfe3-433f-b995-72dc01276e58" />
+<img width="824" height="881" alt="Capture d&#39;écran 2026-03-11 225409" src="https://github.com/user-attachments/assets/e0261e37-eb4d-42f1-9de7-626f1cdcbf42" />
+
 
 ## Authors
 
@@ -126,3 +130,4 @@ This project helped practice:
 
 
 Engineering Cycle – Computer Science
+
