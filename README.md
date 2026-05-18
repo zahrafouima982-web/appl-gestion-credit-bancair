@@ -122,6 +122,8 @@ This project helped practice:
 <img width="1034" height="857" alt="Capture d&#39;écran 2026-03-11 232237" src="https://github.com/user-attachments/assets/0152057f-d284-45a1-89f3-54fc35187a62" />
 <img width="908" height="773" alt="Capture d&#39;écran 2026-03-11 232416" src="https://github.com/user-attachments/assets/cb87b284-dfe3-433f-b995-72dc01276e58" />
 <img width="824" height="881" alt="Capture d&#39;écran 2026-03-11 225409" src="https://github.com/user-attachments/assets/e0261e37-eb4d-42f1-9de7-626f1cdcbf42" />
+<img width="1090" height="952" alt="Capture d&#39;écran 2026-03-11 225530" src="https://github.com/user-attachments/assets/550e8eae-3351-4d89-ad88-15471b6e4043" />
+<img width="1063" height="762" alt="Capture d&#39;écran 2026-03-11 225645" src="https://github.com/user-attachments/assets/152953c1-cd20-4867-8fc6-5c06c8f8ca6e" />
 
 
 ## Authors
